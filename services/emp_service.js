@@ -125,41 +125,38 @@ var getEmployeeById = async (req, res, next) => {
     // }
 
 
-    // var updateEmployee = async (req, res, next) => {
-    //     console.log("URL hit to :",req.hostname,req.originalUrl);
-    //     //logger.info("URL hit to :",req.hostname);
-    //     logger.info("Entered into update Employee Service");
-    //     try 
-    //     {
-    //         const id = req.params.Id;
-    //         console.log(id);
-    //         let empData = await employeeModel.Employee.update({
-    //             "isDeleted": 1
-    //         },
+    var updateEmployee = async (req, res, next) => {
+        console.log("URL hit to :",req.hostname,req.originalUrl);
+        //logger.info("URL hit to :",req.hostname);
+        logger.info("Entered into update Employee Service");
+        try 
+        {
+            const id = req.params.Id;
+            console.log(id);
+            let empData = await employeeModel.Employee.update(res.body,
+            {
+                where: {
+                      Id: id
+                    }
+            })
+            res.send(empData);
+            // res.status(STATUS_CODES.OK).send({
+            // "statusCode": STATUS_CODES.OK,
+            // "info": "Successfully updatedEmployee Data",
             
-    //         {
-    //             where: {
-    //                   Id: id
-    //                 }
-    //         })
-    //         res.send(empData);
-    //         // res.status(STATUS_CODES.OK).send({
-    //         // "statusCode": STATUS_CODES.OK,
-    //         // "info": "Successfully updatedEmployee Data",
-            
-    //         // })
-    //     }
-    //     catch(e){
-    //         return next(e);
-    //     }
-    // }
+            // })
+        }
+        catch(e){
+            return next(e);
+        }
+    }
 
 
 module.exports={
     postEmployee:postEmployee,
     getAllEmployees1:getAllEmployees,
     getEmployeeById:getEmployeeById,
-    // updateEmployee:updateEmployee,
+    updateEmployee:updateEmployee
     // deleteEmployee:deleteEmployee  
 
 }

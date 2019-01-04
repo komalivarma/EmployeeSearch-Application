@@ -8,7 +8,7 @@ const service = require('../services/emp_service');
 router.post('/insertEmployee',joi(schema.empSchema),service.postEmployee);
 router.get('/getAllEmployees',service.getAllEmployees1);
 router.get('/getEmployeeById/:Id',service.getEmployeeById);
-// router.put('/updateEmployee/:Id', service.updateEmployee);
+ router.put('/updateEmployee/:Id', service.updateEmployee);
 // router.put('/deleteEmployee/:Id', service.deleteEmployee);
 
 module.exports = router;
