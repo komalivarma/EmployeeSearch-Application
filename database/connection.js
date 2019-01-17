@@ -1,8 +1,8 @@
 var logger = require('../util/logger');
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-var connection = new Sequelize('crud', 'root', 'root',{
-    host: '127.0.0.1',
+var connection = new Sequelize('ad_dc6845c323b7cc9', 'bd8f729f3e779a', 'bfb02f13',{
+    host: 'us-cdbr-iron-east-01.cleardb.net',
     port: 3306,
     dialect: 'mysql',
     operatorsAliases: Op, // use Sequelize.Op.

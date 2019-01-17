@@ -1,0 +1,283 @@
+swagger: "2.0"
+info:
+  description: "Employee Search Application"
+  version: "1.0.0"
+  title: "Employee Search Application Documentation"
+host: "localhost:3000"
+basePath: "/"
+tags:
+- name: "Employee Data"
+  description: "Add, Delete, Update, Get Employee Information"
+- name: "Login"
+  description: "Get the login credentials and performs the login functionality"
+schemes:
+- "https"
+- "http"
+paths:
+  /emp/insertEmployee:
+    post:
+      tags:
+      - "Employee Data"
+      summary: "Insert the employee details into database"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Employee object that needs to be added into the db"
+        required: true
+        schema:
+          $ref: "#/definitions/saveEmp_request"
+      responses:
+        200:
+          description: "Success"
+          schema:
+           $ref: "#/definitions/saveEmp_response_200"
+        400:
+         description: "Bad Request"
+        404:
+         description: "Not Found"
+        500:
+         description: "Internal server error"
+  /emp/getAllEmployees:
+    get:
+      tags:
+      - "Employee Data"
+      summary: "Retrieve the employee details from database"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+           $ref: "#/definitions/getEmp_response_200"
+        400:
+         description: "Bad Request"
+        404:
+         description: "Not Found"
+        500:
+         description: "Internal server error"
+  /emp/updateEmployee:      
+    put:
+      tags:
+      - "Employee Data"
+      summary: "Update an existing Employee Based on ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        type: "integer"
+        required: true
+        description: "Employee object that needs to be updated in the db"
+      - in: "body"
+        name: "body"
+        description: "Employee object that needs to be updated in the db"
+        required: true
+        schema:
+          $ref: "#/definitions/updateBody_request"
+      responses:
+        200:
+          description: "Success"
+          schema:
+           $ref: "#/definitions/updateEmp_response_200"
+        400:
+          description: "Invalid Employee ID"
+        404:
+          description: "ID Not Found"
+        500:
+          description: "Internal Server Error"
+  /emp/deleteemployee:
+    delete:
+      tags:
+      - "Employee Data"
+      summary: "Delete Employee based on ID"
+      operationId: "Id"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "The Id that needs to be deleted"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/deleteEmp_response_200"
+        400:
+          description: "Invalid Employee ID supplied"
+        404:
+          description: "ID not found"
+  /login/loginEmployee:
+    post:
+      tags:
+      - "Login"
+      summary: "Checking the Credentials from Login DB"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Enter the Username and Password"
+        required: true
+        schema:
+          $ref: "#/definitions/login_request"
+      responses:
+        200:
+          description: "Success"
+          schema:
+           $ref: "#/definitions/login_response_200"
+        400:
+         description: "Bad Request"
+        404:
+         description: "Invalid Credentials"
+        500:
+         description: "Internal server error"
+
+definitions:
+
+ saveEmp_request:
+    type: "object"
+    properties:
+      FirstName:
+        type: "string"
+        example: "komali"
+      LastName: 
+        type: "string"
+        example: "pathri"
+      Email:
+        type: "string"
+        example: "kpathri@gmail.com"
+      Phone:
+        type: "string"
+        example: "9032621842"
+      City:
+        type: "string"
+        example: "VSP"
+      Gender:
+        type: "string"
+        example: "FeMale"
+      Dept:
+        type: "string"
+        example: "Development"
+      HireDate:
+        type: "string"
+        example: "2018-08-15"
+ saveEmp_response_200:
+    type: "object"
+    properties:
+      Status: 
+        type: "string"
+        example: "200"
+      Info:
+        type: "string"
+        example: "Successfully Inserted"
+ getEmp_response_200:
+    type: "object"
+    properties:
+      Id:
+        type: "integer"
+        example: "1"
+      FirstName:
+        type: "string"
+        example: "komali"
+      LastName: 
+        type: "string"
+        example: "pathri"
+      Email:
+        type: "string"
+        example: "kpathri@gmail.com"
+      Phone:
+        type: "string"
+        example: "9032621842"
+      City:
+        type: "string"
+        example: "VSP"
+      Gender:
+        type: "string"
+        example: "FeMale"
+      Dept:
+        type: "string"
+        example: "Development"
+      HireDate:
+        type: "string"
+        example: "2018-08-15"
+      isDeleted:
+        type: "integer"
+        example: "0"
+ updateEmp_response_200:
+    type: "object"
+    properties:
+      Status:
+        type: "string"
+        example: "200"
+      Info:
+        type: "string"
+        example: "Successfully Updated in Database"
+ updateBody_request:
+  type: "object"
+  properties:
+    FirstName:
+      type: "string"
+      example: "Komali Varma"
+    LastName:
+      type: "string"
+      example: "Pathri"
+    Email:
+      type: "string"
+      example: "kpathri@gmail.com"
+    Phone:
+      type: "string"
+      example: "9032621842"
+    City:
+      type: "string"
+      example: "VSP"
+    Gender:
+      type: "string"
+      example: "Female"
+    Dept:
+      type: "string"
+      example: "Development"
+    HireDate: 
+      type: "string"
+      example: "2015-08-15"
+ deleteEmp_response_200:
+    type: "object"
+    properties:
+      Status:
+        type: "string"
+        example: "200"
+      Indo:
+        type: "string"
+        example: "Successfully Inserted"
+ login_request:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        example: "komali"
+      password: 
+        type: "string"
+        example: "komali@123"
+ login_response_200:
+    type: "object"
+    properties:
+      Status: 
+        type: "string"
+        example: "200"
+      Info:
+        type: "string"
+        example: "Successfully Logged In"

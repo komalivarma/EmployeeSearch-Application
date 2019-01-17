@@ -26,6 +26,19 @@ app.use(express.urlencoded({ extended: false }));
 // res.header("Access-Control-Allow-Headers", "*");
 // next();
 // });
+
+// Swagger Integration
+var swaggerUi = require('swagger-ui-express'),
+    YAML = require('yamljs'),
+    swaggerDocument = YAML.load(path.join(__dirname + '/swagger.yaml'));
+var options = {
+    swaggerOptions: {
+        docExpansion: 'none'
+    }
+};
+app.use('/swagger', swaggerUi.serve);
+app.get('/swagger', swaggerUi.setup(swaggerDocument,options));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -101,8 +114,8 @@ app.use((err,req,res,next)=>{
   }
 
 });
-app.listen(3000,()=>{
-  console.log("listining on 3000");
+app.listen(8080,()=>{
+  console.log("listining on 8080");
 });
 
 module.exports = app;
