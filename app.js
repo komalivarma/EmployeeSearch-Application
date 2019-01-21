@@ -4,7 +4,7 @@ var app = express();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//const cors = require("cors");
+const cors = require("cors");
 var logger = require('morgan');
 var connection = require('./database/connection');
 var utillogger =require('./util/logger');
@@ -18,14 +18,16 @@ var loginroute = require('./routes/login_route');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// //app.use(cors());
-// app.options('*',cors());
-// app.use(function(req, res, next)
-// {
-// res.header("Access-Control-Allow-Origin", "*");
-// res.header("Access-Control-Allow-Headers", "*");
-// next();
-// });
+
+//CORS Integration
+app.use(cors());
+app.options('*',cors());
+app.use(function(req, res, next)
+{
+res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Headers", "*");
+next();
+});
 
 // Swagger Integration
 var swaggerUi = require('swagger-ui-express'),
